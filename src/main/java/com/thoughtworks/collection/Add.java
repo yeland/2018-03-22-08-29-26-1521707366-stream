@@ -2,8 +2,7 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Add {
     public int getSumOfEvens(int leftBorder, int rightBorder) {
@@ -61,26 +60,71 @@ public class Add {
     }
 
     public double getMedianOfEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        List<Integer> evenArrayList = new ArrayList<>();
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (i % 2 == 0) {
+                evenArrayList.add(arrayList.get(i));
+            }
+        }
+        Collections.sort(evenArrayList);
+        int small = (int) Math.floor((evenArrayList.size() - 1) / 2.0);
+        int large = (int) Math.ceil((evenArrayList.size() - 1) / 2.0);
+        return (evenArrayList.get(small) + evenArrayList.get(large)) / 2.0;
     }
 
     public double getAverageOfEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        int sum = 0;
+        int length = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (i % 2 == 0) {
+                sum += arrayList.get(i);
+                length += 1;
+            }
+        }
+        return sum / length;
     }
 
     public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElment) {
-        throw new NotImplementedException();
+        for (Integer num : arrayList) {
+            if (num % 2 == 0 && specialElment.equals(num)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        List<Integer> evenList = new ArrayList<>();
+        for (Integer num:arrayList) {
+            if(num%2==0 && evenList.indexOf(num)<0) {
+                evenList.add(num);
+            }
+        }
+        return evenList;
     }
 
     public List<Integer> sortByEvenAndOdd(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        List<Integer> evenList = new ArrayList<>();
+        List<Integer> oddList = new ArrayList<>();
+        for (Integer num:arrayList) {
+            if(num%2 == 0) {
+                evenList.add(num);
+            } else {
+                oddList.add(num);
+            }
+        }
+        Collections.sort(evenList);
+        Collections.sort(oddList);
+        Collections.reverse(oddList);
+        evenList.addAll(oddList);
+        return evenList;
     }
 
     public List<Integer> getProcessedList(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        List<Integer> array = new ArrayList<>();
+        for (int i = 1; i<arrayList.size();i++) {
+            array.add(3*(arrayList.get(i-1)+arrayList.get(i)));
+        }
+        return array;
     }
 }
