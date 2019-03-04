@@ -2,6 +2,7 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +23,11 @@ public class Reduce {
     }
 
     public double getAverage() {
-        throw new NotImplementedException();
+        double sum = 0;
+        for (Integer num : this.arrayList) {
+            sum += num;
+        }
+        return sum / this.arrayList.size();
     }
 
     public double getOrderedMedian() {
@@ -33,15 +38,33 @@ public class Reduce {
     }
 
     public int getFirstEven() {
-        throw new NotImplementedException();
+        for (Integer num : this.arrayList) {
+            if (num % 2 == 0) {
+                return num;
+            }
+        }
+        return 0;
     }
 
     public int getIndexOfFirstEven() {
-        throw new NotImplementedException();
+        for (int i = 0; i < this.arrayList.size(); i++) {
+            if (this.arrayList.get(i) % 2 == 0) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public boolean isEqual(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        if (this.arrayList.size()!=arrayList.size()) {
+            return false;
+        }
+        for (int i=0;i<this.arrayList.size();i++) {
+            if (!this.arrayList.get(i).equals(arrayList.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //实现接口SingleLink，然后再此函数内使用
@@ -50,10 +73,17 @@ public class Reduce {
     }
 
     public int getLastOdd() {
-        throw new NotImplementedException();
+        int lastOdd = 0;
+        for (Integer num : this.arrayList) {
+            if (num % 2 == 1) {
+                lastOdd = num;
+            }
+        }
+        return lastOdd;
     }
 
     public int getIndexOfLastOdd() {
-        throw new NotImplementedException();
+        Integer lastOdd = getLastOdd();
+        return this.arrayList.lastIndexOf(lastOdd);
     }
 }

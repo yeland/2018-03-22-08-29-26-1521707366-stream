@@ -73,7 +73,7 @@ public class Add {
     }
 
     public double getAverageOfEvenIndex(List<Integer> arrayList) {
-        int sum = 0;
+        double sum = 0;
         int length = 0;
         for (int i = 0; i < arrayList.size(); i++) {
             if (i % 2 == 0) {
