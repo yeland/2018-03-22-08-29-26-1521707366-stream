@@ -56,10 +56,10 @@ public class Reduce {
     }
 
     public boolean isEqual(List<Integer> arrayList) {
-        if (this.arrayList.size()!=arrayList.size()) {
+        if (this.arrayList.size() != arrayList.size()) {
             return false;
         }
-        for (int i=0;i<this.arrayList.size();i++) {
+        for (int i = 0; i < this.arrayList.size(); i++) {
             if (!this.arrayList.get(i).equals(arrayList.get(i))) {
                 return false;
             }
@@ -69,7 +69,14 @@ public class Reduce {
 
     //实现接口SingleLink，然后再此函数内使用
     public Double getMedianInLinkList(SingleLink singleLink) {
-        throw new NotImplementedException();
+        SingleLinkList<Integer> singleLinkList = new SingleLinkList<>();
+        for (Integer num:this.arrayList) {
+            singleLink.addTailPointer(num);
+            singleLinkList.addTailPointer(num);
+        }
+        int small = (int) Math.floor((singleLinkList.size() - 1) / 2.0);
+        int large = (int) Math.ceil((singleLinkList.size() - 1) / 2.0);
+        return (singleLinkList.getNode(small) + singleLinkList.getNode(large)) / 2.0;
     }
 
     public int getLastOdd() {
