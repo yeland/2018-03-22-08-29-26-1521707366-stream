@@ -3,6 +3,8 @@ package com.thoughtworks.collection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MyMap {
 
@@ -16,41 +18,26 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        List<Integer> triple = new ArrayList<>();
-        for (Integer num : this.array) {
-            triple.add(num * 3);
-        }
-        return triple;
+        return this.array.stream().map(i -> i * 3).collect(Collectors.toList());
     }
 
     public List<String> mapLetter() {
-        List<String> letterList = new ArrayList<>();
-        for (Integer num : this.array) {
-            letterList.add(letters[num - 1]);
-        }
-        return letterList;
+        return this.array.stream().map(i -> letterList.get(i - 1)).collect(Collectors.toList());
     }
 
     public List<String> mapLetters() {
-        List<String> lettersList = new ArrayList<>();
-        for (Integer num : this.array) {
-            if (num <= 26) {
-                lettersList.add(letters[num - 1]);
-            } else {
-                lettersList.add(letters[(num - 1) / 26 - 1] + letters[(num - 1) % 26]);
-            }
-        }
-        return lettersList;
+        Stream<String> letter = this.array.stream().filter(element -> element <= 26)
+                .map(i -> letterList.get(i - 1));
+        Stream<String> letters = this.array.stream().filter(element -> element > 26)
+                .map(i -> letterList.get((i - 1) / 26 - 1) + letterList.get((i - 1) % 26));
+        return Stream.concat(letter, letters).collect(Collectors.toList());
     }
 
     public List<Integer> sortFromBig() {
-        List<Integer> list = sortFromSmall();
-        Collections.reverse(list);
-        return list;
+        return this.array.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
     }
 
     public List<Integer> sortFromSmall() {
-        Collections.sort(this.array);
-        return this.array;
+        return this.array.stream().sorted().collect(Collectors.toList());
     }
 }
