@@ -5,6 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Flaten {
 
@@ -15,11 +16,7 @@ public class Flaten {
     }
 
     public List<Integer> transformToOneDimesional() {
-        List<Integer> resultList = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            resultList.addAll(Arrays.asList(array[i]));
-        }
-        return resultList;
+        return Arrays.stream(this.array).flatMap(Arrays::stream).collect(Collectors.toList());
     }
 
     public List<Integer> transformToUnrepeatedOneDimesional() {

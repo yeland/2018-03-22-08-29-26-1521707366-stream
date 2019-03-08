@@ -5,6 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Filter {
 
@@ -15,42 +16,18 @@ public class Filter {
     }
 
     public List<Integer> filterEven() {
-        List<Integer> evenArray = new ArrayList<>();
-        for (Integer num : this.array) {
-            if (num % 2 == 0) {
-                evenArray.add(num);
-            }
-        }
-        return evenArray;
+        return this.array.stream().filter(i -> i % 2 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> filterMultipleOfThree() {
-        List<Integer> threeArray = new ArrayList<>();
-        for (Integer num:this.array) {
-            if (num%3==0) {
-                threeArray.add(num);
-            }
-        }
-        return threeArray;
+        return this.array.stream().filter(i -> i % 3 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> getCommonElements(List<Integer> firstList, List<Integer> secondList) {
-        List<Integer> common = new ArrayList<>();
-        for (Integer num:firstList) {
-            if(secondList.contains(num)) {
-                common.add(num);
-            }
-        }
-        return common;
+        return firstList.stream().filter(secondList::contains).collect(Collectors.toList());
     }
 
     public List<Integer> getDifferentElements() {
-        List<Integer> resultList = new ArrayList<>();
-        for (Integer num:this.array) {
-            if(!resultList.contains(num)) {
-                resultList.add(num);
-            }
-        }
-        return resultList;
+        return this.array.stream().distinct().collect(Collectors.toList());
     }
 }
