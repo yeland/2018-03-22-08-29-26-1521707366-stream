@@ -45,41 +45,27 @@ public class Reduce {
     }
 
     public boolean isEqual(List<Integer> arrayList) {
-        if (this.arrayList.size() != arrayList.size()) {
-            return false;
-        }
-        for (int i = 0; i < this.arrayList.size(); i++) {
-            if (!this.arrayList.get(i).equals(arrayList.get(i))) {
-                return false;
-            }
-        }
-        return true;
+        return arrayList.containsAll(this.arrayList) && this.arrayList.containsAll(arrayList);
     }
 
     //实现接口SingleLink，然后再此函数内使用
     public Double getMedianInLinkList(SingleLink singleLink) {
         SingleLinkList<Integer> singleLinkList = new SingleLinkList<>();
-        for (Integer num : this.arrayList) {
+        this.arrayList.forEach(num -> {
             singleLink.addTailPointer(num);
             singleLinkList.addTailPointer(num);
-        }
+        });
         int small = (int) Math.floor((singleLinkList.size() - 1) / 2.0);
         int large = (int) Math.ceil((singleLinkList.size() - 1) / 2.0);
         return (singleLinkList.getNode(small) + singleLinkList.getNode(large)) / 2.0;
     }
 
     public int getLastOdd() {
-        int lastOdd = 0;
-        for (Integer num : this.arrayList) {
-            if (num % 2 == 1) {
-                lastOdd = num;
-            }
-        }
-        return lastOdd;
+        List<Integer> list = this.arrayList.stream().filter(i -> i % 2 == 1).collect(Collectors.toList());
+        return list.get(list.size()-1);
     }
 
     public int getIndexOfLastOdd() {
-        Integer lastOdd = getLastOdd();
-        return this.arrayList.lastIndexOf(lastOdd);
+        return this.arrayList.lastIndexOf(getLastOdd());
     }
 }
