@@ -4,7 +4,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Reduce {
 
@@ -15,19 +17,16 @@ public class Reduce {
     }
 
     public int getMaximum() {
-        return Collections.max(this.arrayList);
+        IntSummaryStatistics statistics = this.arrayList.stream().collect(Collectors.summarizingInt(Integer::valueOf));
+        return statistics.getMax();
     }
 
     public double getMinimum() {
-        return Collections.min(this.arrayList);
+        return this.arrayList.stream().reduce(this.arrayList.get(0), (pre, ele) -> (pre < ele) ? pre : ele);
     }
 
     public double getAverage() {
-        double sum = 0;
-        for (Integer num : this.arrayList) {
-            sum += num;
-        }
-        return sum / this.arrayList.size();
+        return this.arrayList.stream().collect(Collectors.averagingDouble(Integer::valueOf));
     }
 
     public double getOrderedMedian() {
@@ -38,21 +37,11 @@ public class Reduce {
     }
 
     public int getFirstEven() {
-        for (Integer num : this.arrayList) {
-            if (num % 2 == 0) {
-                return num;
-            }
-        }
-        return 0;
+        return this.arrayList.stream().filter(i -> i % 2 == 0).findFirst().get();
     }
 
     public int getIndexOfFirstEven() {
-        for (int i = 0; i < this.arrayList.size(); i++) {
-            if (this.arrayList.get(i) % 2 == 0) {
-                return i;
-            }
-        }
-        return 0;
+        return this.arrayList.indexOf(getFirstEven());
     }
 
     public boolean isEqual(List<Integer> arrayList) {
@@ -70,7 +59,7 @@ public class Reduce {
     //实现接口SingleLink，然后再此函数内使用
     public Double getMedianInLinkList(SingleLink singleLink) {
         SingleLinkList<Integer> singleLinkList = new SingleLinkList<>();
-        for (Integer num:this.arrayList) {
+        for (Integer num : this.arrayList) {
             singleLink.addTailPointer(num);
             singleLinkList.addTailPointer(num);
         }
