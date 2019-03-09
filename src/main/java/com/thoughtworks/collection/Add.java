@@ -25,7 +25,8 @@ public class Add {
     }
 
     public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
-        return arrayList.stream().filter(i -> i % 2 == 1).map(number -> number * 3 + 2).collect(Collectors.toList());
+        return arrayList.stream().map(number -> (number % 2 == 0) ? number : number * 3 + 2)
+                .collect(Collectors.toList());
     }
 
     public int getSumOfProcessedOdds(List<Integer> arrayList) {
@@ -58,12 +59,12 @@ public class Add {
                 .sorted().collect(Collectors.toList());
         List<Integer> oddList = arrayList.stream().filter(i -> i % 2 == 1)
                 .sorted(Collections.reverseOrder()).collect(Collectors.toList());
-        return Stream.concat(evenList.stream(),oddList.stream()).collect(Collectors.toList());
+        return Stream.concat(evenList.stream(), oddList.stream()).collect(Collectors.toList());
     }
 
     public List<Integer> getProcessedList(List<Integer> arrayList) {
-        IntStream indexStream = IntStream.range(1,arrayList.size());
-        List<Integer> array = indexStream.mapToObj(i->3*(arrayList.get(i-1)+arrayList.get(i)))
+        IntStream indexStream = IntStream.range(1, arrayList.size());
+        List<Integer> array = indexStream.mapToObj(i -> 3 * (arrayList.get(i - 1) + arrayList.get(i)))
                 .collect(Collectors.toList());
         return array;
     }
